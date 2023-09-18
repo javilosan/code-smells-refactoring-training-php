@@ -19,12 +19,11 @@ class DateRepresentation
 
     public function toDate(): OurDate
     {
-        try {
-            return new OurDate(DateTime::createFromFormat(self::DATE_FORMAT, $this->dateAsString));
-        } catch (\Throwable $e) {
-            throw new \InvalidArgumentException('ParseException');
+        $dateTime = DateTime::createFromFormat(self::DATE_FORMAT, $this->dateAsString);
+        if(!$dateTime){
+            throw new \InvalidArgumentException('Wrong date');
         }
-
+        return new OurDate($dateTime);
     }
 
 }
