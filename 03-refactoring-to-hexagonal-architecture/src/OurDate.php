@@ -15,11 +15,11 @@ class OurDate
 
     public function __construct(string $yyyyMMdd)
     {
-        try {
-            $this->date = DateTime::createFromFormat('Y/m/d H:i:s', $yyyyMMdd . ' 00:00:00');
-        } catch (\Throwable $e) {
-            throw new \InvalidArgumentException('ParseException');
+        $dateTime = DateTime::createFromFormat('Y/m/d H:i:s', $yyyyMMdd . ' 00:00:00');
+        if(!$dateTime){
+            throw new \InvalidArgumentException('Wrong date');
         }
+        $this->date = $dateTime;
     }
 
     public function isSameDay($anotherDate): bool

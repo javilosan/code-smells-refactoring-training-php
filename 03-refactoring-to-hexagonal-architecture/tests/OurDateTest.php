@@ -20,10 +20,19 @@ class OurDateTest extends TestCase
         $this->assertFalse($OurDate->isSameDay($notSameMonth), 'not same month');
     }
 
-    public function testExceptionInCreationObject()
+    /**
+     * @dataProvider invalidDates
+     */
+    public function testInvalidDateAreNotCreated($date)
     {
         $this->expectException(InvalidArgumentException::class);
-        $invalidDate = new OurDate("");
-        $anotherInvalidDate = new OurDate();
+        $invalidDate = new OurDate($date);
     }
-}
+
+    public function invalidDates(): array
+    {
+        return [
+            'empty date' => [''],
+            'invalid format' => ['1789-02-25'],
+        ];
+    }}
