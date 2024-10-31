@@ -18,17 +18,7 @@ class FileEmployeesRepository implements EmployeeRepository
         $this->path = $path;
     }
 
-    public function employeesWhoseBirthdayIs(OurDate $date): array
-    {
-        return array_filter(
-            $this->allEmployees(),
-            function (Employee $employee) use ($date) {
-                return $employee->isBirthday($date);
-            }
-        );
-    }
-
-    private function allEmployees(): array
+    function getAll(): array
     {
         $employees = [];
         $fileHandler = $this->openFile();
@@ -63,6 +53,4 @@ class FileEmployeesRepository implements EmployeeRepository
             throw new CannotReadEmployeesException("Badly formatted employee birth date in: '$dateAsString'");
         }
     }
-
-
 }
