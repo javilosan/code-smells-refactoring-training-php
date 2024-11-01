@@ -12,6 +12,7 @@ class AcceptanceTest extends TestCase
     private const SMTP_PORT = 25;
     private BirthdayService $service;
 
+    /** @before */
     protected function setUp(): void
     {
         $this->service = new class() extends BirthdayService {
@@ -34,7 +35,8 @@ class AcceptanceTest extends TestCase
         };
     }
 
-    public function testWillSendGreetings_whenItsSomebodysBirthday(): void
+    /** @test */
+    public function willSendGreetings_whenItsSomebodysBirthday(): void
     {
         $this->service->sendGreetings(
             dirname(__FILE__) . '/resources/employee_data.txt',
@@ -51,7 +53,8 @@ class AcceptanceTest extends TestCase
         $this->assertEquals('john.doe@foobar.com', key($message->getTo()));
     }
 
-    public function testWillNotSendEmailsWhenNobodysBirthday(): void
+    /** @test */
+    public function willNotSendEmailsWhenNobodysBirthday(): void
     {
         $this->service->sendGreetings(
             dirname(__FILE__) . '/resources/employee_data.txt',

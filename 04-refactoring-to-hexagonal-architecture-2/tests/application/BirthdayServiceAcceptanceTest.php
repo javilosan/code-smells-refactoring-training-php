@@ -16,6 +16,7 @@ class BirthdayServiceAcceptanceTest extends TestCase
     private BirthdayService $service;
     private const EMPLOYEES_FILE_PATH = "/../resources/employee_data.txt";
 
+    /** @before */
     protected function setUp(): void
     {
         $employeesFilePath = dirname(__FILE__) . self::EMPLOYEES_FILE_PATH;
@@ -37,7 +38,8 @@ class BirthdayServiceAcceptanceTest extends TestCase
         };
     }
 
-    public function testBaseScenario(): void
+    /** @test */
+    public function baseScenario(): void
     {
         $today = OurDateFactory::ourDateFromString("2008/10/08");
 
@@ -52,7 +54,8 @@ class BirthdayServiceAcceptanceTest extends TestCase
         $this->assertEquals("john.doe@foobar.com", key($message->getTo()));
     }
 
-    public function testWillNotSendEmailsWhenNobodysBirthday(): void
+    /** @test */
+    public function willNotSendEmailsWhenNobodysBirthday(): void
     {
         $today = OurDateFactory::ourDateFromString('2008/01/01');
 

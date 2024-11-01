@@ -8,7 +8,8 @@ use PHPUnit\Framework\TestCase;
 class OurDateTest extends TestCase
 {
 
-    public function testIsSameDate()
+    /** @test */
+    public function isSameDate()
     {
         $OurDate = new OurDate('1789/01/24');
         $sameDay = new OurDate('2001/01/24');
@@ -21,9 +22,10 @@ class OurDateTest extends TestCase
     }
 
     /**
+     * @test
      * @dataProvider invalidDates
      */
-    public function testInvalidDateAreNotCreated($date)
+    public function invalidDateAreNotCreated($date)
     {
         $this->expectException(InvalidArgumentException::class);
         $invalidDate = new OurDate($date);
