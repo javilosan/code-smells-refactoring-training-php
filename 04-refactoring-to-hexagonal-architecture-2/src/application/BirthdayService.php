@@ -41,12 +41,12 @@ class BirthdayService
 
     private function employeesHavingBirthday($today): array
     {
-        return array_filter(
+        return array_values(array_filter(
             $this->employeeRepository->getAll(),
             function (Employee $employee) use ($today) {
                 return $employee->isBirthday($today);
             }
-        );
+        ));
     }
 
     private function send(array $messages, string $smtpHost, int $smtpPort, string $sender)
