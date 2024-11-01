@@ -72,7 +72,7 @@ class BirthdayService
         $mailer = new Swift_Mailer(
             new Swift_SmtpTransport($smtpHost, $smtpPort)
         );
-        // Connstruct the message
+        // Construct the message
         $msg = new Swift_Message($subject);
         $msg->setFrom($sender)
             ->setTo([$recipient])
