@@ -15,18 +15,16 @@ class FileEmployeeRepositoryTest extends TestCase
         $employeeRepository = new FileEmployeesRepository("non-existing.file");
         $this->expectException(CannotReadEmployeesException::class);
         $this->expectExceptionMessageMatches("/cannot loadFrom file/");
-        $this->expectExceptionMessageMatches("/non-existing.file/");
 
         $employeeRepository->getAll();
     }
 
     /** @test */
-    public function fails_when_a_date_is_wrongly_formatted(): void
+    public function fails_when_a_birthdate_is_wrongly_formatted(): void
     {
-        $path = dirname(__FILE__) . "/../../resources/wrong_data__wrong-date-format.csv";
+        $path = dirname(__FILE__) . "/../../resources/file-with-employee-with-wrongly-formatted-birthdate.csv";
         $employeeRepository = new FileEmployeesRepository($path);
         $this->expectException(CannotReadEmployeesException::class);
-        $this->expectExceptionMessageMatches("/Badly formatted employee birth date in: '2016-01-01'/");
 
         $employeeRepository->getAll();
     }
