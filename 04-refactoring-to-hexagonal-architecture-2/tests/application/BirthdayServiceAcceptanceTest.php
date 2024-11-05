@@ -2,11 +2,15 @@
 
 declare(strict_types=1);
 
+namespace application;
+
 use App\application\BirthdayService;
 use App\core\EmployeeRepository;
 use App\infrastructure\repositories\FileEmployeesRepository;
 use helpers\OurDateFactory;
 use PHPUnit\Framework\TestCase;
+use Swift_Mailer;
+use Swift_Message;
 
 class BirthdayServiceAcceptanceTest extends TestCase
 {
@@ -34,7 +38,6 @@ class BirthdayServiceAcceptanceTest extends TestCase
             {
                 $this->messagesSent[] = $msg;
             }
-
         };
     }
 

@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace infrastructure\repositories;
+
 use App\core\CannotReadEmployeesException;
 use App\infrastructure\repositories\FileEmployeesRepository;
 use PHPUnit\Framework\TestCase;
