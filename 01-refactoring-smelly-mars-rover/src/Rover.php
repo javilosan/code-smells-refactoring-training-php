@@ -6,48 +6,47 @@ namespace App;
 
 class Rover
 {
-    private string $direction;
+    private Direction $direction;
     private int $y;
     private int $x;
 
     public function __construct(int $x, int $y, string $direction)
     {
-        $this->direction = $direction;
+        $this->setDirection($direction);
         $this->y = $y;
         $this->x = $x;
     }
 
+    private function setDirection(string $direction): void
+    {
+        $this->direction = new Direction($direction);
+    }
+
     public function receive(string $commandsSequence): void
     {
-        $commandsSequenceLenght = strlen($commandsSequence);
-        for ($i = 0; $i < $commandsSequenceLenght; ++$i) {
+        for ($i = 0; $i < strlen($commandsSequence); ++$i) {
             $command = substr($commandsSequence, $i, 1);
-            if ($command === "l" || $command === "r") {
+            if ($command === "l") {
                 // Rotate Rover
-                if ($this->direction === "N") {
-                    if ($command === "r") {
-                        $this->direction = "E";
-                    } else {
-                        $this->direction = "W";
-                    }
-                } else if ($this->direction === "S") {
-                    if ($command === "r") {
-                        $this->direction = "W";
-                    } else {
-                        $this->direction = "E";
-                    }
-                } else if ($this->direction === "W") {
-                    if ($command === "r") {
-                        $this->direction = "N";
-                    } else {
-                        $this->direction = "S";
-                    }
+                if ($this->isFacingNorth()) {
+                    $this->setDirection("W");
+                } else if ($this->isFacingSouth()) {
+                    $this->setDirection("E");
+                } else if ($this->isFacingWest()) {
+                    $this->setDirection("S");
                 } else {
-                    if ($command === "r") {
-                        $this->direction = "S";
-                    } else {
-                        $this->direction = "N";
-                    }
+                    $this->setDirection("N");
+                }
+            } elseif ($command === "r") {
+                // Rotate Rover
+                if ($this->isFacingNorth()) {
+                    $this->setDirection("E");
+                } else if ($this->isFacingSouth()) {
+                    $this->setDirection("W");
+                } else if ($this->isFacingWest()) {
+                    $this->setDirection("N");
+                } else {
+                    $this->setDirection("S");
                 }
             } else {
                 // Displace Rover
@@ -58,16 +57,31 @@ class Rover
                 }
                 $displacement = $displacement1;
 
-                if ($this->direction === "N") {
+                if ($this->isFacingNorth()) {
                     $this->y += $displacement;
-                } else if ($this->direction === "S") {
+                } else if ($this->isFacingSouth()) {
                     $this->y -= $displacement;
-                } else if ($this->direction === "W") {
+                } else if ($this->isFacingWest()) {
                     $this->x -= $displacement;
                 } else {
                     $this->x += $displacement;
                 }
             }
         }
+    }
+
+    private function isFacingNorth(): bool
+    {
+        return $this->direction->isFacingNorth();
+    }
+
+    private function isFacingSouth(): bool
+    {
+        return $this->direction->isFacingSouth();
+    }
+
+    private function isFacingWest(): bool
+    {
+        return $this->direction->isFacingWest();
     }
 }
