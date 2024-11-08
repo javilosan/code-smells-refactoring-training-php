@@ -56,13 +56,13 @@ class Rover
                 $displacement = $displacement1;
 
                 if ($this->isFacingNorth()) {
-                    $this->coordinates = $this->moveAlongY($displacement);
+                    $this->coordinates = $this->coordinates->moveAlongY($displacement);
                 } else if ($this->isFacingSouth()) {
-                    $this->coordinates = $this->moveAlongY(-$displacement);
+                    $this->coordinates = $this->coordinates->moveAlongY(-$displacement);
                 } else if ($this->isFacingWest()) {
-                    $this->coordinates = $this->moveAlongX(-$displacement);
+                    $this->coordinates = $this->coordinates->moveAlongX(-$displacement);
                 } else {
-                    $this->coordinates = $this->moveAlongX($displacement);
+                    $this->coordinates = $this->coordinates->moveAlongX($displacement);
                 }
             }
         }
@@ -81,23 +81,5 @@ class Rover
     private function isFacingWest(): bool
     {
         return $this->direction->isFacingWest();
-    }
-
-    /**
-     * @param int $displacement
-     * @return Coordinates
-     */
-    private function moveAlongY(int $displacement): Coordinates
-    {
-        return $this->coordinates->moveAlongY($displacement);
-    }
-
-    /**
-     * @param int $displacement
-     * @return Coordinates
-     */
-    private function moveAlongX(int $displacement): Coordinates
-    {
-        return $this->coordinates->moveAlongX($displacement);
     }
 }

@@ -9,16 +9,6 @@ final class Coordinates
     {
     }
 
-    public function x(): int
-    {
-        return $this->x;
-    }
-
-    public function y(): int
-    {
-        return $this->y;
-    }
-
     public function moveAlongY(int $displacement): Coordinates
     {
         return new Coordinates(
