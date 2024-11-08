@@ -18,4 +18,20 @@ final class Coordinates
     {
         return $this->y;
     }
+
+    public function moveAlongY(int $displacement): Coordinates
+    {
+        return new Coordinates(
+            $this->x,
+            $this->y + $displacement
+        );
+    }
+
+    public function moveAlongX(int $displacement): Coordinates
+    {
+        return new Coordinates(
+            $this->x + $displacement,
+            $this->y
+        );
+    }
 }

@@ -12,7 +12,7 @@ class Rover
     public function __construct(int $x, int $y, string $direction)
     {
         $this->setDirection($direction);
-        $this->setCoordinates($x, $y);
+        $this->coordinates = new Coordinates($x, $y);
     }
 
     private function setDirection(string $direction): void
@@ -56,13 +56,13 @@ class Rover
                 $displacement = $displacement1;
 
                 if ($this->isFacingNorth()) {
-                    $this->setCoordinates($this->coordinates->x(), $this->coordinates->y() + $displacement);
+                    $this->coordinates = $this->moveAlongY($displacement);
                 } else if ($this->isFacingSouth()) {
-                    $this->setCoordinates($this->coordinates->x(), $this->coordinates->y() - $displacement);
+                    $this->coordinates = $this->moveAlongY(-$displacement);
                 } else if ($this->isFacingWest()) {
-                    $this->setCoordinates($this->coordinates->x() - $displacement, $this->coordinates->y());
+                    $this->coordinates = $this->moveAlongX(-$displacement);
                 } else {
-                    $this->setCoordinates($this->coordinates->x() + $displacement, $this->coordinates->y());
+                    $this->coordinates = $this->moveAlongX($displacement);
                 }
             }
         }
@@ -83,8 +83,21 @@ class Rover
         return $this->direction->isFacingWest();
     }
 
-    private function setCoordinates(int $x, int $y): void
+    /**
+     * @param int $displacement
+     * @return Coordinates
+     */
+    private function moveAlongY(int $displacement): Coordinates
     {
-        $this->coordinates = new Coordinates($x, $y);
+        return $this->coordinates->moveAlongY($displacement);
+    }
+
+    /**
+     * @param int $displacement
+     * @return Coordinates
+     */
+    private function moveAlongX(int $displacement): Coordinates
+    {
+        return $this->coordinates->moveAlongX($displacement);
     }
 }
