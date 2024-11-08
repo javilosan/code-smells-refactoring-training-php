@@ -7,14 +7,12 @@ namespace App;
 class Rover
 {
     private Direction $direction;
-    private int $y;
-    private int $x;
+    private Coordinates $coordinates;
 
     public function __construct(int $x, int $y, string $direction)
     {
         $this->setDirection($direction);
-        $this->y = $y;
-        $this->x = $x;
+        $this->setCoordinates($x, $y);
     }
 
     private function setDirection(string $direction): void
@@ -58,13 +56,13 @@ class Rover
                 $displacement = $displacement1;
 
                 if ($this->isFacingNorth()) {
-                    $this->y += $displacement;
+                    $this->setCoordinates($this->coordinates->x(), $this->coordinates->y() + $displacement);
                 } else if ($this->isFacingSouth()) {
-                    $this->y -= $displacement;
+                    $this->setCoordinates($this->coordinates->x(), $this->coordinates->y() - $displacement);
                 } else if ($this->isFacingWest()) {
-                    $this->x -= $displacement;
+                    $this->setCoordinates($this->coordinates->x() - $displacement, $this->coordinates->y());
                 } else {
-                    $this->x += $displacement;
+                    $this->setCoordinates($this->coordinates->x() + $displacement, $this->coordinates->y());
                 }
             }
         }
@@ -83,5 +81,10 @@ class Rover
     private function isFacingWest(): bool
     {
         return $this->direction->isFacingWest();
+    }
+
+    private function setCoordinates(int $x, int $y): void
+    {
+        $this->coordinates = new Coordinates($x, $y);
     }
 }
